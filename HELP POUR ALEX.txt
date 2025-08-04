@@ -1,0 +1,6 @@
+//--------Push sur Github----------//
+
+git add .
+git commit -m "Message clair de la modif"
+git push
+
