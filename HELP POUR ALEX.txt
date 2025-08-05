@@ -4,3 +4,12 @@ git add .
 git commit -m "Message clair de la modif"
 git push
 
+//-------Render-------------------//
+
+C'est une sorte de cloud pour avoir les infos de Strapi
+
+Hostname : dpg-d28hp36uk2gs73fdhphg-a
+Port : 5432
+Database : strapi_db_dsjw
+Username : strapi_db_dsjw_user
+Password : mYm4Uj10wUtEk0mK2iUHC19SYNMSDH4z
