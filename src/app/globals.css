@@ -2,3 +2,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@font-face {
+  font-family: 'HelveticaCustom';
+  src: url('/fonts/helvetica.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Optionnel : applique la police à tout le body */
+body {
+  font-family: 'HelveticaCustom', sans-serif;
+  text-transform: uppercase;
+}
