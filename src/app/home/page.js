@@ -1,9 +1,24 @@
-//---\mon-portfolio\src\app\home\page.js
+// src/app/home/page.js
+import './home.css';
+
 export default function Home() {
   return (
-    <main className="min-h-screen p-8 bg-pink-100">
-      <h1 className="text-4xl font-bold">Bienvenue sur mon site !</h1>
-      <p className="mt-4">Je suis Alexandre Gambarini, designer et développeur interactif.</p>
+    <main className="home-container">
+      <div className="home-video">
+        {/* Ici tu pourras ajouter <video> ou <img> */}
+        <p style={{ color: 'white' }}>Video / GIF</p>
+      </div>
+
+      <div className="home-text">
+        <h1 className="text-3xl font-bold mb-4">Bienvenue sur mon site !</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          tincidunt, nulla at pulvinar facilisis, sapien lorem feugiat lorem,
+          nec porttitor nulla magna nec ligula. Integer at libero felis.
+        </p>
+      </div>
+      <div className="graphik">
+        </div>
     </main>
   );
 }

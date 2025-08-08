@@ -1,0 +1,37 @@
+/* home.css */
+
+.home-container {
+  display: flex;
+  height: calc(100vh - 5em);
+  /* height: 100vh; */
+  background-color: #ffffff;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.home-video {
+  flex: 3;
+  margin: 0em 0em 0.8em 1em;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-text {
+  flex: 1;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+}
+.graphik{
+    background-image: url("../assets/graphik/home.svg");
+    background-repeat: no-repeat;
+    background-position-y: bottom;
+    fill: red;
+    /* background-color: pink; */
+    position: fixed;
+    bottom: 0px;
+    width: 80vw;
+    height: 100vh;
+}

@@ -1,20 +1,21 @@
-//---\mon-portfolio\src\app\components\navbar.js
+// src/app/components/navbar.js
 import Link from 'next/link';
+import './navbar.css'; // Import du fichier CSS
 
 export default function Navbar() {
   return (
-    <nav className="w-full flex justify-between items-center px-8 py-4 bg-white shadow">
-      <div className="text-xl font-bold">
+    <nav className="navbar">
+      <div className="navbar__left">
         <Link href="/home">Alexandre</Link>
       </div>
 
-      <div className="space-x-6 text-base">
-        <Link href="/projects" className="hover:underline">Projects</Link>
-        <Link href="/mylife" className="hover:underline">My Life</Link>
-        <Link href="/contact" className="hover:underline">Contact</Link>
+      <div className="navbar__center">
+        <Link href="/projects" className="navbar__link">Projects</Link>
+        <Link href="/mylife" className="navbar__link">My Life</Link>
+        <Link href="/contact" className="navbar__link">Contact</Link>
       </div>
 
-      <div className="text-xl font-bold">
+      <div className="navbar__right">
         <Link href="/home">Gambarini</Link>
       </div>
     </nav>

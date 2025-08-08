@@ -14,4 +14,6 @@
 body {
   font-family: 'HelveticaCustom', sans-serif;
   text-transform: uppercase;
+  background-color: white;
+  color: black;
 }
