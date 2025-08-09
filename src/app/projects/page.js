@@ -1,4 +1,3 @@
-// src/app/projects/page.js
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -20,22 +19,20 @@ export default function Projects() {
   }, []);
 
   useEffect(() => {
-  const titles = document.querySelectorAll('.project-title');
+    const titles = document.querySelectorAll('.project-title');
 
-  titles.forEach(title => {
-    const link = title.querySelector('a');
-    if (!link) return;
+    titles.forEach(title => {
+      const link = title.querySelector('a');
+      if (!link) return;
 
-    const maxChars = 25; // seuil
-    if (link.textContent.trim().length > maxChars) {
-      link.classList.add('scroll-on-hover');
-    } else {
-      link.classList.remove('scroll-on-hover');
-    }
-  });
-}, [projets]);
-
-
+      const maxChars = 25;
+      if (link.textContent.trim().length > maxChars) {
+        link.classList.add('scroll-on-hover');
+      } else {
+        link.classList.remove('scroll-on-hover');
+      }
+    });
+  }, [projets]);
 
   if (projets.length === 0) {
     return <p className="p-8">Chargement des projets...</p>;
@@ -45,11 +42,10 @@ export default function Projects() {
     <main className="projects-container">
       {projets.map((projet, projetIndex) => {
         const imageUrls =
-          projet.Image?.map(
+          projet.images?.map(
             (img) => img.formats?.medium?.url || img.url
           ) || [];
 
-        // Choix du preset selon l'index modulo la taille des presets
         const preset = widthPresets[projetIndex % widthPresets.length];
 
         return (
@@ -57,15 +53,15 @@ export default function Projects() {
             <div className="project-text">
               <div className="project-meta">
                 <h2 className="project-title">
-                  <Link href={`/projects/${projet.Slug}`}>
-                    {projet.Titre}
+                  <Link href={`/projects/${projet.slug}`}>
+                    {projet.titre}
                   </Link>
                 </h2>
-                <span className="project-year"><strong>→ {projet.Annee}</strong></span>
+                <span className="project-year"><strong>→ {projet.annee}</strong></span>
               </div>
               <div className="project-category-container">
-                {projet.Categorie &&
-                  projet.Categorie.split(' - ').map((cat, index) => (
+                {projet.categorie &&
+                  projet.categorie.split(' - ').map((cat, index) => (
                     <p key={index} className="project-category">
                       {cat.trim()}
                     </p>
@@ -73,7 +69,7 @@ export default function Projects() {
                 }
               </div>
               <p className="project-description">
-                {projet.Description?.[0]?.children?.[0]?.text || 'Pas de description'}
+                {projet.description?.[0]?.children?.[0]?.text || 'Pas de description'}
               </p>
             </div>
 

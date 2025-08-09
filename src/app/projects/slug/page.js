@@ -1,10 +1,10 @@
-import { fetchProjectBySlug, fetchProjects } from '../../../utils/fetchProjects';
+import { fetchProjectBySlug } from '../../../utils/fetchProjects';
 
 export async function generateStaticParams() {
   const projets = await fetchProjects();
 
   return projets.map(projet => ({
-    slug: projet.Slug,
+    slug: projet.slug, // en minuscule
   }));
 }
 
@@ -15,27 +15,27 @@ export default async function ProjectPage({ params }) {
   }
 
   const imageUrl =
-    projet.Image?.[0]?.formats?.medium?.url ||
-    projet.Image?.[0]?.url;
+    projet.images?.[0]?.formats?.medium?.url ||
+    projet.images?.[0]?.url;
 
   return (
     <main className="min-h-screen p-8 bg-pink-50">
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-4xl font-bold mb-4">{projet.Titre}</h1>
+        <h1 className="text-4xl font-bold mb-4">{projet.titre}</h1>
 
         {imageUrl && (
           <img
             src={imageUrl}
-            alt={projet.Image?.[0]?.name || 'Image du projet'}
+            alt={projet.images?.[0]?.name || 'Image du projet'}
             className="w-full mb-6 rounded shadow"
           />
         )}
 
         <p className="mb-4 text-lg">
-          {projet.Description?.[0]?.children?.[0]?.text || 'Pas de description disponible.'}
+          {projet.description?.[0]?.children?.[0]?.text || 'Pas de description disponible.'}
         </p>
 
-        <p className="mb-2"><strong>Année :</strong> {projet.Annee}</p>
+        <p className="mb-2"><strong>Année :</strong> {projet.annee}</p>
       </div>
     </main>
   );

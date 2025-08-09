@@ -13,7 +13,14 @@ git push
 //--------Modifier le Content-type de strapi-Cloud-------
 Ouvrir le terminal dans repos strapi
 -> npm run developp
+-> npm run build
 Modifier ce qu'il faut Modifier
+Si nouveau content-type:
+    Supprimer le dossier routes, controllers et services dans api/nom du content-type
+    -> npm run developp
+    -> npm run build
+    -> Prier
+    -> Push
 Push sur Github :
 git add .
 git commit -m "Message clair de la modif"
