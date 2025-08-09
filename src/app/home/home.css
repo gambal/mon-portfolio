@@ -1,16 +1,20 @@
 /* home.css */
 
 .home-container {
+    position: fixed;
+    bottom: 0px;
   display: flex;
-  height: calc(100vh - 5em);
-  /* height: 100vh; */
-  background-color: #ffffff;
+  overflow: hidden;
+  width: 100dvw;
+  height: calc(100vh - 7dvw);
+  /* background-color: red; */
   font-family: Helvetica, Arial, sans-serif;
 }
 
 .home-video {
+    overflow: hidden;
   flex: 3;
-  margin: 0em 0em 0.8em 1em;
+  margin: 0em 0em 1em 1em;
   background-color: black;
   display: flex;
   align-items: center;
@@ -29,9 +33,8 @@
     background-repeat: no-repeat;
     background-position-y: bottom;
     fill: red;
-    /* background-color: pink; */
     position: fixed;
     bottom: 0px;
     width: 80vw;
-    height: 100vh;
+    height: 80vh;
 }

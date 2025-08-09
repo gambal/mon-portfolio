@@ -1,9 +1,16 @@
+// src/app/projects/page.js
 'use client';
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { fetchProjects } from '../../utils/fetchProjects';
-import './projects.css'; // On importe le CSS externe
+import './projects.css';
+
+const widthPresets = [
+  ['40%', '30%', '30%'],
+  ['30%', '50%', '20%'],
+  ['50%', '20%', '30%'],
+];
 
 export default function Projects() {
   const [projets, setProjets] = useState([]);
@@ -12,21 +19,41 @@ export default function Projects() {
     fetchProjects().then(setProjets);
   }, []);
 
+  useEffect(() => {
+  const titles = document.querySelectorAll('.project-title');
+
+  titles.forEach(title => {
+    const link = title.querySelector('a');
+    if (!link) return;
+
+    const maxChars = 25; // seuil
+    if (link.textContent.trim().length > maxChars) {
+      link.classList.add('scroll-on-hover');
+    } else {
+      link.classList.remove('scroll-on-hover');
+    }
+  });
+}, [projets]);
+
+
+
   if (projets.length === 0) {
     return <p className="p-8">Chargement des projets...</p>;
   }
 
   return (
     <main className="projects-container">
-      {projets.map((projet) => {
+      {projets.map((projet, projetIndex) => {
         const imageUrls =
           projet.Image?.map(
             (img) => img.formats?.medium?.url || img.url
           ) || [];
 
+        // Choix du preset selon l'index modulo la taille des presets
+        const preset = widthPresets[projetIndex % widthPresets.length];
+
         return (
           <div key={projet.id} className="project-card">
-            {/* Colonne gauche */}
             <div className="project-text">
               <div className="project-meta">
                 <h2 className="project-title">
@@ -34,21 +61,22 @@ export default function Projects() {
                     {projet.Titre}
                   </Link>
                 </h2>
-                <span><strong>{projet.Annee}</strong></span>
+                <span className="project-year"><strong>→ {projet.Annee}</strong></span>
               </div>
-
-              {projet.Categorie && (
-                <p className="project-category">
-                  {projet.Categorie}
-                </p>
-              )}
-
+              <div className="project-category-container">
+                {projet.Categorie &&
+                  projet.Categorie.split(' - ').map((cat, index) => (
+                    <p key={index} className="project-category">
+                      {cat.trim()}
+                    </p>
+                  ))
+                }
+              </div>
               <p className="project-description">
                 {projet.Description?.[0]?.children?.[0]?.text || 'Pas de description'}
               </p>
             </div>
 
-            {/* Colonne droite : max 3 images */}
             <div className="project-images">
               {imageUrls.length > 0 ? (
                 imageUrls.slice(0, 3).map((url, index) => (
@@ -56,6 +84,7 @@ export default function Projects() {
                     key={index}
                     src={url}
                     alt={`Image ${index + 1}`}
+                    style={{ width: preset[index] || '30%' }}
                   />
                 ))
               ) : (

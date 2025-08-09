@@ -1,9 +1,15 @@
-// src/app/projects/[slug]/page.js
-import { fetchProjectBySlug } from '../../../utils/fetchProjects';
+import { fetchProjectBySlug, fetchProjects } from '../../../utils/fetchProjects';
+
+export async function generateStaticParams() {
+  const projets = await fetchProjects();
+
+  return projets.map(projet => ({
+    slug: projet.Slug,
+  }));
+}
 
 export default async function ProjectPage({ params }) {
   const projet = await fetchProjectBySlug(params.slug);
-
   if (!projet) {
     return <main className="p-8"><p>Projet non trouvé</p></main>;
   }

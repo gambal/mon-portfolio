@@ -21,7 +21,8 @@
 .navbar__center {
   display: flex;
   gap: 10vw;
-  font-size: 1rem;
+  font-size: 1dvw;
+  font-weight: bold;
   padding: 0vw 1vw;
   text-transform: uppercase;
 }
@@ -33,17 +34,43 @@
 }
 
 /* Effet soulignement animé */
-.navbar__link::after {
+.link_projects::after {
   content: '';
   position: absolute;
   left: 0;
   bottom: 3px;
   width: 0;
-  height: 1px;
+  height: 0.1dvw;
   background-color: black;
   transition: width 0.5s ease;
 }
+.link_contact::after {
+  content: '';
+  position: absolute;
+  right: 0px;
+  bottom: 3px;
+  width: 0;
+  height: 0.1dvw;
+  background-color: black;
+  transition: width 0.5s ease;
+}
+.link_mylife::after {
+  content: '';
+  position: absolute;
+  left: 50%;         /* centre horizontal */
+  bottom: 3px;
+  width: 0;
+  height: 0.1dvw;
+  background-color: black;
+  transform-origin: center;  /* origine du scale au centre */
+  transform: translateX(-50%) scaleX(0); /* on centre la ligne et on la réduit à 0 */
+  transition: transform 0.5s ease;
+}
 
+.link_mylife:hover::after {
+  transform: translateX(-50%) scaleX(1); /* on étire la ligne depuis le centre */
+  width: 100%; /* width doit rester à 100% pour que scaleX marche bien */
+}
 .navbar__link:hover::after {
   width: 100%;
 }
@@ -59,6 +86,7 @@
     align-items: center;
     padding: 0em 0em 0.5em 0em;
     gap: 0em;
+    text-transform: uppercase;
   }
 
   /* Ligne avec Alexandre à gauche et Gambarini à droite */

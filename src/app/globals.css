@@ -9,10 +9,28 @@
   font-style: normal;
   font-display: swap;
 }
-
+*{
+  cursor: none;
+}
 /* Optionnel : applique la police à tout le body */
 body {
   font-family: 'HelveticaCustom', sans-serif;
+  /* text-transform: uppercase; */
   background-color: white;
   color: black;
+}
+::-webkit-scrollbar {
+  position: sticky;
+  width: 10px;              /* largeur de la scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;  /* couleur du fond derrière la scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: black;    /* couleur de la barre de scroll */
+  border-radius: 40px;       /* arrondir les bords */
+  border: 3px solid transparent; /* espace autour de la barre */
+  background-clip: content-box;
 }

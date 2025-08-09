@@ -1,16 +1,6 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from './components/navbar';
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import Cursor from '../utils/cursor'; // créer ce fichier ou mettre Cursor ici même
 
 export const metadata = {
   title: "Alexandre Gambarini",
@@ -20,11 +10,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="fr">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}
-      >
+      <body>
         <Navbar />
         {children}
+        <Cursor />
       </body>
     </html>
   );
