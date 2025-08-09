@@ -20,7 +20,6 @@ body {
   color: black;
 }
 ::-webkit-scrollbar {
-  position: sticky;
   width: 10px;              /* largeur de la scrollbar */
 }
 
