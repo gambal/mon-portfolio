@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { fetchProjects } from '../../utils/fetchProjects';
+import './projects.css'; // On importe le CSS externe
 
 export default function Projects() {
   const [projets, setProjets] = useState([]);
@@ -16,42 +17,45 @@ export default function Projects() {
   }
 
   return (
-    <main className="min-h-screen bg-white p-8 space-y-8">
-      <h1 className="text-3xl font-bold mb-6">Mes projets 🎨</h1>
-
-      {projets.map(projet => {
-        const imageUrls = projet.Image?.map(
-          img => img.formats?.medium?.url || img.url
-        ) || [];
+    <main className="projects-container">
+      {projets.map((projet) => {
+        const imageUrls =
+          projet.Image?.map(
+            (img) => img.formats?.medium?.url || img.url
+          ) || [];
 
         return (
-          <div key={projet.id} className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-pink-100 rounded shadow h-[20vh] overflow-hidden">
+          <div key={projet.id} className="project-card">
             {/* Colonne gauche */}
-            <div className="p-4 overflow-auto">
-              <h2 className="text-xl font-semibold mb-1">
-                <Link href={`/projects/${projet.Slug}`} className="text-blue-700 hover:underline">
-                  {projet.Titre}
-                </Link>
-              </h2>
-              <p className="text-sm text-gray-700 mb-1">
+            <div className="project-text">
+              <div className="project-meta">
+                <h2 className="project-title">
+                  <Link href={`/projects/${projet.Slug}`}>
+                    {projet.Titre}
+                  </Link>
+                </h2>
+                <span><strong>{projet.Annee}</strong></span>
+              </div>
+
+              {projet.Categorie && (
+                <p className="project-category">
+                  {projet.Categorie}
+                </p>
+              )}
+
+              <p className="project-description">
                 {projet.Description?.[0]?.children?.[0]?.text || 'Pas de description'}
               </p>
-              {projet.Categorie && (
-                <p className="text-sm mb-1"><strong>Catégorie :</strong> {projet.Categorie}</p>
-              )}
-              <p className="text-sm"><strong>Année :</strong> {projet.Annee}</p>
-
             </div>
 
-            {/* Colonne droite : images */}
-            <div className="md:col-span-2 overflow-x-auto flex items-center space-x-4 px-4">
+            {/* Colonne droite : max 3 images */}
+            <div className="project-images">
               {imageUrls.length > 0 ? (
-                imageUrls.map((url, index) => (
+                imageUrls.slice(0, 3).map((url, index) => (
                   <img
                     key={index}
                     src={url}
                     alt={`Image ${index + 1}`}
-                    className="h-full object-contain rounded shadow"
                   />
                 ))
               ) : (
