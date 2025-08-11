@@ -49,6 +49,7 @@
   margin-right: 1rem;
   white-space: nowrap;
   overflow: hidden;
+  position: relative;
   font-size: max(min(3vw, 5em), 2vw);
   text-transform: uppercase;
 }
@@ -58,11 +59,15 @@
   color: inherit;
   /* transition pas nécessaire ici mais ok */
 }
-.scroll-on-hover {
-  display: inline-block;
-  white-space: nowrap;
+.scroll-wrapper {
   overflow: hidden;
-  position: relative;
+  width: 100%;
+}
+
+.scroll-text:hover {
+  display: inline-block;
+  padding-right: 2rem; /* espace pour la boucle */
+  animation: scroll-title 6s linear infinite;
 }
 
 .scroll-on-hover:hover {

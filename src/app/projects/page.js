@@ -1,7 +1,5 @@
 // src/app/projects/page.js
-'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { fetchProjects } from '../../utils/fetchProjects';
 import './projects.css';
@@ -12,32 +10,10 @@ const widthPresets = [
   ['50%', '20%', '30%'],
 ];
 
-export default function Projects() {
-  const [projets, setProjets] = useState([]);
+export default async function Projects() {
+  const projets = await fetchProjects();
 
-  useEffect(() => {
-    fetchProjects().then(setProjets);
-  }, []);
-
-  useEffect(() => {
-  const titles = document.querySelectorAll('.project-title');
-
-  titles.forEach(title => {
-    const link = title.querySelector('a');
-    if (!link) return;
-
-    const maxChars = 25; // seuil
-    if (link.textContent.trim().length > maxChars) {
-      link.classList.add('scroll-on-hover');
-    } else {
-      link.classList.remove('scroll-on-hover');
-    }
-  });
-}, [projets]);
-
-
-
-  if (projets.length === 0) {
+  if (!projets.length) {
     return <p className="p-8">Chargement des projets...</p>;
   }
 
@@ -49,7 +25,6 @@ export default function Projects() {
             (img) => img.formats?.medium?.url || img.url
           ) || [];
 
-        // Choix du preset selon l'index modulo la taille des presets
         const preset = widthPresets[projetIndex % widthPresets.length];
 
         return (
@@ -57,11 +32,19 @@ export default function Projects() {
             <div className="project-text">
               <div className="project-meta">
                 <h2 className="project-title">
-                  <Link href={`/projects/${projet.Slug}`}>
-                    {projet.Titre}
-                  </Link>
+                <div className={projet.Titre?.length > 20 ? 'scroll-wrapper' : ''}>
+                    <span className={projet.Titre?.length > 20 ? 'scroll-text' : ''}>
+                    <Link href={`/projects/${projet.Slug}`}>
+                        {projet.Titre}
+                    </Link>
+                    </span>
+                </div>
                 </h2>
-                <span className="project-year"><strong>→ {projet.Annee}</strong></span>
+
+
+                <span className="project-year">
+                  <strong>→ {projet.Annee}</strong>
+                </span>
               </div>
               <div className="project-category-container">
                 {projet.Categorie &&
