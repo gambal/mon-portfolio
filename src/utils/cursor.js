@@ -30,7 +30,7 @@ export default function Cursor() {
     const onMouseOver = (e) => {
       if (isClickable(e.target)) {
         hoveringClickable.current = true;
-        cursorRef.current.style.backgroundColor = 'white';
+        cursorRef.current.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
         cursorRef.current.style.borderColor = 'black';
         scaleRef.current = 1.5;
       }
@@ -105,7 +105,7 @@ posAnimated.current.y = pos.current.y;
         pointerEvents: 'none',
         zIndex: 9999,
         transform: 'translate3d(0,0,0) translate(-50%, -50%) scale(1)',
-        backdropFilter: 'blur(6px)',
+        backdropFilter: 'blur(1px)',
         transition:
           'background-color 0.2s ease, border-color 0.2s ease, transform 0.25s ease',
       }}
