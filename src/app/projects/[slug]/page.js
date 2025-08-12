@@ -37,8 +37,18 @@ export default async function ProjectPage({ params }) {
     ? variantsForCount[Math.floor(Math.random() * variantsForCount.length)]
     : '';
 
+  // 🔹 Rotation aléatoire entre -5° et 5°
+  const randomRotation = 0;
+
   return (
     <main className="project-slug-container">
+      <div
+        className="graphiqueProjectSlug"
+        style={{
+          transform: `rotate(${randomRotation}deg)`,
+        }}
+      ></div>
+
       {/* Colonne gauche */}
       <div className="project-slug-text">
         <h1 className="project-slug-title">{projet.Titre}</h1>
@@ -53,7 +63,7 @@ export default async function ProjectPage({ params }) {
         </div>
 
         <p className="project-slug-description">
-           {projet.Explication || 'Pas d’explication disponible.'}
+          {projet.Explication || 'Pas d’explication disponible.'}
         </p>
 
         <div className="project-slug-bottom-meta">
@@ -67,19 +77,29 @@ export default async function ProjectPage({ params }) {
       {/* Colonne droite avec GRID dynamique */}
       <div className={`project-slug-images ${gridClass}`}>
         {limitedImages.length > 0 ? (
-          limitedImages.map((url, index) => (
-            <img
-              key={index}
-              src={url} 
-              alt={`Image ${index + 1}`}
-              className="clickable-img"
-            />
-          ))
+          limitedImages.map((url, index) => {
+            const randomZIndex = Math.random() < 0.5 ? 9 : 11;
+
+            return (
+              <img
+                key={index}
+                src={url}
+                alt={`Image ${index + 1}`}
+                className="clickable-img"
+                style={{
+                  position: 'relative',
+                  zIndex: randomZIndex,
+                }}
+              />
+            );
+          })
         ) : (
           <p>Aucune image</p>
         )}
       </div>
+
       <Lightbox />
     </main>
   );
 }
+

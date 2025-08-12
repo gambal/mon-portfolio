@@ -4,32 +4,81 @@ import './lightbox.css';
 
 export default function Lightbox() {
   useEffect(() => {
-    const overlay = document.createElement('div');
-    overlay.className = 'lightbox-overlay';
-    const imgElement = document.createElement('img');
-    overlay.appendChild(imgElement);
-    document.body.appendChild(overlay);
+    if (typeof window === 'undefined') return;
 
-    // On attend un petit délai pour être sûr que les images existent
-    const timer = setTimeout(() => {
-      const images = document.querySelectorAll('.project-slug-images img');
+    // conteneurs autorisés — tu peux ajouter d'autres sélecteurs si besoin
+    const containerSelectors = ['.project-slug-images', '.mylife-images-grid'];
 
-      images.forEach(img => {
-        img.addEventListener('click', () => {
-          imgElement.src = img.src;
-          overlay.classList.add('active');
-        });
-      });
-    }, 100); // 100ms suffit en général
+    // Réutiliser overlay s'il existe (évite doublons si mount multiple)
+    let overlay = document.querySelector('.lightbox-overlay');
+    let created = false;
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.className = 'lightbox-overlay';
+      overlay.innerHTML = '<img class="lightbox-image" alt="Preview" />';
+      document.body.appendChild(overlay);
+      created = true;
+    }
 
-    // Fermer en cliquant sur l'overlay
-    overlay.addEventListener('click', () => {
+    const imgElement = overlay.querySelector('.lightbox-image');
+
+    const open = (img) => {
+      const src =
+        img.currentSrc ||
+        img.src ||
+        img.dataset?.src ||
+        img.getAttribute('data-src') ||
+        '';
+      if (!src) return;
+      imgElement.src = src;
+      overlay.classList.add('active');
+      // optionnel : bloquer le scroll de fond
+      document.documentElement.style.overflow = 'hidden';
+    };
+
+    const close = () => {
       overlay.classList.remove('active');
-    });
+      imgElement.src = '';
+      document.documentElement.style.overflow = '';
+    };
+
+    const isAllowedImg = (img) =>
+      containerSelectors.some((sel) => Boolean(img.closest(sel)));
+
+    const onDocumentClick = (e) => {
+      const target = e.target;
+
+      // si clic dans l'overlay (mais pas sur l'image) => fermer
+      if (overlay.contains(target) && !target.closest('.lightbox-image')) {
+        close();
+        return;
+      }
+
+      const img = target.closest('img');
+      if (!img) return;
+      if (!isAllowedImg(img)) return;
+
+      // empêcher lien par exemple
+      if (e.defaultPrevented) return;
+      e.preventDefault();
+
+      open(img);
+    };
+
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape' && overlay.classList.contains('active')) {
+        close();
+      }
+    };
+
+    // capture early pour attraper clics sur images avant d'autres handlers
+    document.addEventListener('click', onDocumentClick, true);
+    document.addEventListener('keydown', onKeyDown);
 
     return () => {
-      clearTimeout(timer);
-      overlay.remove();
+      document.removeEventListener('click', onDocumentClick, true);
+      document.removeEventListener('keydown', onKeyDown);
+      if (created && overlay.parentNode) overlay.remove();
     };
   }, []);
 

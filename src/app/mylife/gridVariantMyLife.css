@@ -1,0 +1,181 @@
+/* \src\app\mylife\gridVariantMyLife.css */
+
+/* ------------------- Mapping des zones ------------------- */
+.mylife-images-grid img:nth-child(1) { grid-area: img1; }
+.mylife-images-grid img:nth-child(2) { grid-area: img2; }
+.mylife-images-grid img:nth-child(3) { grid-area: img3; }
+.mylife-images-grid img:nth-child(4) { grid-area: img4; }
+.mylife-images-grid img:nth-child(5) { grid-area: img5; }
+.mylife-images-grid img:nth-child(6) { grid-area: img6; }
+.mylife-images-grid img:nth-child(7) { grid-area: img7; }
+.mylife-images-grid img:nth-child(8) { grid-area: img8; }
+.mylife-images-grid img:nth-child(9) { grid-area: img9; }
+.mylife-images-grid img:nth-child(10) { grid-area: img10; }
+/* === 2 IMAGES === */
+.grid-1-variant-1 {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 95%;
+  grid-template-areas:
+    ". img1";
+}
+.grid-1-variant-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 95%;
+  grid-template-areas:
+    ". img1";
+}
+.grid-1-variant-3 {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 95%;
+  grid-template-areas:
+    ". img1";
+}
+
+/* === 2 IMAGES === */
+.grid-2-variant-1 {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 20% 50% 25%;
+  grid-template-areas:
+    "img1 img2"
+    "img1 img2"
+    "img1 .";
+}
+.grid-2-variant-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 30% 20% 45%;
+  grid-template-areas:
+    "img1 img1 img2"
+    "img1 img1 img2"
+    "img1 img1 img2";
+}
+.grid-2-variant-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 30% 40% 15%;
+  grid-template-areas:
+    "img1 img2"
+    "img1 img2"
+    ". img2";
+}
+
+/* === 3 IMAGES === */
+.grid-3-variant-1 {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 40% 10% 45%;
+  grid-template-areas:
+    "img1 img2"
+    "img1 img3"
+    "img1 img3";
+}
+
+.grid-3-variant-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 30% 20% 45%;
+  grid-template-areas:
+    "img1 img2"
+    "img3 img3"
+    "img3 img3";
+}
+
+.grid-3-variant-3 {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 40% 10% 45%;
+  grid-template-areas:
+    "img1 img2"
+    "img1 img2"
+    "img3 img3";
+}
+
+/* ==== 4 IMAGES ==== */
+.grid-4-variant-1 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+  grid-template-rows: 35% 10% 50%;
+  grid-template-areas:
+    "img1 img1 img2"
+    "img3 img3 img2"
+    "img3 img3 img4";
+}
+.grid-4-variant-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+  grid-template-rows: 35% 30% 30%;
+  grid-template-areas:
+    "img1 img1 img2"
+    "img3 img3 img2"
+    "img4 img4 img4";
+}
+.grid-4-variant-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 30% 20% 45%;
+  grid-template-areas:
+    "img1 img2"
+    "img3 img2"
+    "img3 img4";
+}
+/* ==== 5 IMAGES ==== */
+.grid-5-variant-1 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr 1fr;
+  grid-template-rows: 10% 15% 60%;
+  grid-template-areas:
+    "img1 img1 img2 img2"
+    "img3 img3 img2 img2"
+    "img3 img3 img5 img4";
+}
+.grid-5-variant-2 {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr;
+  grid-template-rows: 35% 40% 20%;
+  grid-template-areas:
+    "img1 img1 img2"
+    "img3 img3 img4"
+    "img5 img5 img4";
+}
+.grid-5-variant-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 40% 35% 20%;
+  grid-template-areas:
+    "img1 img2 img2"
+    "img3 img4 img5"
+    "img3 img4 img5";
+}
+
+/* ==== 6 IMAGES ==== */
+.grid-6-variant-1 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 6fr 1fr;
+  grid-template-rows: 25% 15% 35%;
+  grid-template-areas:
+    "img1 img1 img2 img2"
+    "img5 img5 img3 img4"
+    "img5 img5 img6 img6"
+}
+.grid-6-variant-2 {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 1fr;
+  grid-template-rows: 40% 20% 35%;
+  grid-template-areas:
+    "img1 img1 img2 img2"
+    "img3 img3 img4 img4"
+    "img5 img5 img6 img6";
+}
+.grid-6-variant-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr ;
+  grid-template-rows: 25% 40% 30%;
+  grid-template-areas:
+    "img1 img2 img2"
+    "img3 img4 img5"
+    "img6 img6 img5";
+}

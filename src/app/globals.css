@@ -12,24 +12,23 @@
 *{
   cursor: none;
 }
-/* Optionnel : applique la police à tout le body */
 body {
   font-family: 'HelveticaCustom', sans-serif;
-  /* text-transform: uppercase; */
   background-color: white;
   color: black;
+  overflow-x: hidden;
 }
 ::-webkit-scrollbar {
-  width: 10px;              /* largeur de la scrollbar */
+  width: 10px;            
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;  /* couleur du fond derrière la scrollbar */
+  background: transparent; 
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: black;    /* couleur de la barre de scroll */
-  border-radius: 40px;       /* arrondir les bords */
-  border: 3px solid transparent; /* espace autour de la barre */
+  background-color: black;   
+  border-radius: 40px;   
+  border: 3px solid transparent; 
   background-clip: content-box;
 }

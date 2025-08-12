@@ -23,7 +23,7 @@ export default function Cursor() {
         target.tagName === 'A' ||
         target.tagName === 'BUTTON' ||
         target.hasAttribute('onclick') ||
-        target.closest('.project-slug-images img')
+        target.closest('.project-slug-images img, .mylife-images-grid img')
       );
     };
 

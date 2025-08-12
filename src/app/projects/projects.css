@@ -1,14 +1,33 @@
 /* projects.css */
-
+html, body {
+  height: auto; /* pour suivre le contenu */
+}
 .projects-container {
   /* background-color: pink; */
-  padding: 1rem;
+  position: relative;
+  padding: 0rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
+.graphiqueProject{
+  /* overflow-y: hidden; */
+  position:absolute;
+  top: -10dvh;
+  left: 0px;
+  width: 100dvw;
+  min-height: 100dvh;
+  height: 100%;
+  /* background-color: red; */
+  background-image: url("../assets/graphik/projects.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 10;
+  pointer-events: none;
+}
 
 .project-card {
+  /* background-color: black; */
   display: grid;
   grid-template-columns: clamp(15rem, 30vw, 40rem) 1fr;
   height: 25vh;
@@ -31,7 +50,7 @@
 
 .project-text {
   width: clamp(15rem, 30vw, 40rem);
-  padding: 1rem;
+  padding: 0rem 1rem;
   border-right: 2px solid rgba(0, 0, 0, 1);
   min-width: 0;
 }
@@ -42,7 +61,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.9rem;
+  /* font-size: 3rem; */
 }
 
 .project-title {
@@ -65,6 +84,7 @@
 }
 
 .scroll-text:hover {
+  /* background-color: red; */
   display: inline-block;
   padding-right: 2rem; /* espace pour la boucle */
   animation: scroll-title 6s linear infinite;
@@ -86,7 +106,7 @@
 
 .project-year {
 white-space: nowrap;
-  margin-top: 0.5vw;
+  margin-top: 0.5rem;
   display: flex;
   font-size: max(min(2.5vw, 2.5em), 1rem);
   font-weight: normal;
@@ -114,7 +134,7 @@ white-space: nowrap;
   width: 100%;
   /* background-color: red; */
   margin-top: 1rem;
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: black;
 }
 

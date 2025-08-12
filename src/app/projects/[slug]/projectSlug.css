@@ -5,6 +5,20 @@
   min-height: 20rem;
   gap: 1rem;
 }
+.graphiqueProjectSlug{
+  position:absolute;
+  top: -10dvh;
+  left: 0px;
+  width: 100dvw;
+  min-height: 110dvh;
+  height: 100%;
+  /* background-color: red; */
+  background-image: url("../../assets/graphik/projectSlug.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 10;
+  pointer-events: none;
+}
 
 .project-slug-text {
   padding: 1rem;
@@ -12,6 +26,7 @@
   flex-direction: column;
   justify-content: space-between; /* pousse le contenu en haut + bas */
   height: 100%;
+  z-index: 11;
 }
 
 .project-slug-title {
@@ -23,7 +38,7 @@
 .project-slug-category-container {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
 }
 
 .project-slug-category {
@@ -61,6 +76,7 @@
 }
 
 .project-slug-images {
+  max-height: 85dvh;
   display: grid;
   gap: 0.5rem;
   padding-right: 1rem;

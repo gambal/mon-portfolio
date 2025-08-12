@@ -18,7 +18,8 @@ export default async function Projects() {
   }
 
   return (
-    <main className="projects-container">
+      <main className="projects-container">
+        <div className='graphiqueProject'></div>
       {projets.map((projet, projetIndex) => {
         const imageUrls =
           projet.Image?.map(
@@ -32,8 +33,8 @@ export default async function Projects() {
             <div className="project-text">
               <div className="project-meta">
                 <h2 className="project-title">
-                <div className={projet.Titre?.length > 20 ? 'scroll-wrapper' : ''}>
-                    <span className={projet.Titre?.length > 20 ? 'scroll-text' : ''}>
+                <div className={projet.Titre?.length > 9 ? 'scroll-wrapper' : ''}>
+                    <span className={projet.Titre?.length > 9 ? 'scroll-text' : ''}>
                     <Link href={`/projects/${projet.Slug}`}>
                         {projet.Titre}
                     </Link>
@@ -61,20 +62,30 @@ export default async function Projects() {
             </div>
 
             <div className="project-images">
-              {imageUrls.length > 0 ? (
-                imageUrls.slice(0, 3).map((url, index) => (
-                  <img
-                    key={index}
-                    src={url}
-                    alt={`Image ${index + 1}`}
-                    style={{ width: preset[index] || '30%' }}
-                  />
-                ))
-              ) : (
-                <p className="text-gray-500">Aucune image</p>
-              )}
+                {imageUrls.length > 0 ? (
+                    imageUrls.slice(0, 3).map((url, index) => {
+                    const randomZIndex = Math.random() < 0.5 ? 9 : 11; // 50% chance
+
+                    return (
+                        <img
+                        key={index}
+                        src={url}
+                        alt={`Image ${index + 1}`}
+                        style={{
+                            width: preset[index] || '30%',
+                            position: 'relative',
+                            zIndex: randomZIndex
+                        }}
+                        />
+                    );
+                    })
+                ) : (
+                    <p className="text-gray-500">Aucune image</p>
+                )}
             </div>
+
           </div>
+          
         );
       })}
     </main>
