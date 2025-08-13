@@ -17,16 +17,16 @@ const mPlus1p = M_PLUS_1p({
 
 // import Lightbox from '../../utils/lightbox';
 const gridVariantsByCount = {
-  1: ["grid-1-variant-1", "grid-1-variant-2", "grid-1-variant-3"],
-  2: ["grid-2-variant-1", "grid-2-variant-2", "grid-2-variant-3"],
-  3: ["grid-3-variant-1", "grid-3-variant-2", "grid-3-variant-3"],
-  4: ["grid-4-variant-1", "grid-4-variant-2", "grid-4-variant-3"],
-  5: ["grid-5-variant-1", "grid-5-variant-2", "grid-5-variant-3"],
-  6: ["grid-6-variant-1", "grid-6-variant-2", "grid-6-variant-3"],
-  7: ["grid-7-variant-1", "grid-7-variant-2", "grid-7-variant-3"],
-  8: ["grid-8-variant-1", "grid-8-variant-2", "grid-8-variant-3"],
-  9: ["grid-9-variant-1", "grid-9-variant-2", "grid-9-variant-3"],
-  10: ["grid-10-variant-1", "grid-10-variant-2", "grid-10-variant-3"],
+  1: ["mylife-grid-1-variant-1", "mylife-grid-1-variant-2", "mylife-grid-1-variant-3"],
+  2: ["mylife-grid-2-variant-1", "mylife-grid-2-variant-2", "mylife-grid-2-variant-3"],
+  3: ["mylife-grid-3-variant-1", "mylife-grid-3-variant-2", "mylife-grid-3-variant-3"],
+  4: ["mylife-grid-4-variant-1", "mylife-grid-4-variant-2", "mylife-grid-4-variant-3"],
+  5: ["mylife-grid-5-variant-1", "mylife-grid-5-variant-2", "mylife-grid-5-variant-3"],
+  6: ["mylife-grid-6-variant-1", "mylife-grid-6-variant-2", "mylife-grid-6-variant-3"],
+  7: ["mylife-grid-7-variant-1", "mylife-grid-7-variant-2", "mylife-grid-7-variant-3"],
+  8: ["mylife-grid-8-variant-1", "mylife-grid-8-variant-2", "mylife-grid-8-variant-3"],
+  9: ["mylife-grid-9-variant-1", "mylife-grid-9-variant-2", "mylife-grid-9-variant-3"],
+  10: ["mylife-grid-10-variant-1", "mylife-grid-10-variant-2", "mylife-grid-10-variant-3"],
 };
 
 const HARDCODED_YEARS = Array.from({ length: 2025 - 2016 + 1 }, (_, i) => 2016 + i);

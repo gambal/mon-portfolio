@@ -125,7 +125,7 @@
 .grid-5-variant-3 {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 30vh 35dvh 20dvh;
+  grid-template-rows: 30dvh 35dvh 20dvh;
   grid-template-areas:
     "img1 img2 img2"
     "img3 img4 img5"
