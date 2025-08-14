@@ -1,27 +1,68 @@
-//---\mon-portfolio\src\utils\fetchProjects.js
+// src/utils/fetchProjects.js
+import axios from "axios";
 
-import axios from 'axios';
+const API_BASE = "https://phenomenal-boat-7e7ba709d3.strapiapp.com";
 
-export async function fetchProjects() {
-  const res = await axios.get(
-    'https://phenomenal-boat-7e7ba709d3.strapiapp.com/api/projets', 
-    {
-      params: {
-        populate: '*',
-        'filters[Titre][$notNull]': true
+// Transforme une URL Strapi potentiellement relative en URL absolue
+const toAbsoluteUrl = (u) => {
+  if (!u) return null;
+  return u.startsWith("http") ? u : `${API_BASE}${u}`;
+};
+
+// Normalise un champ média Strapi (images + vidéos)
+const normalizeMediaList = (media) => {
+  if (!media) return [];
+  const arr = Array.isArray(media) ? media : media.data || [];
+
+  return arr
+    .map((file) => {
+      const f = file.attributes || file; // Strapi v4: parfois { attributes: {...} }
+      const mime = f?.mime || "";
+      const originalUrl = toAbsoluteUrl(f?.url || f?.formats?.original?.url);
+      const mediumUrl = toAbsoluteUrl(f?.formats?.medium?.url);
+
+      // Images
+      if (mime.startsWith("image/")) {
+        const looksGif =
+          mime === "image/gif" || originalUrl?.toLowerCase().endsWith(".gif");
+        return {
+          type: "image",
+          url: looksGif ? originalUrl : (mediumUrl || originalUrl),
+        };
       }
-    }
-  );
-  return res.data.data;
+
+      // Vidéos
+      if (mime.startsWith("video/")) {
+        return {
+          type: "video",
+          url: originalUrl,
+        };
+      }
+
+      // Autres types (audio, pdf...) -> ignorés ici
+      return null;
+    })
+    .filter(Boolean);
+};
+
+// 📌 FETCH PROJECTS
+export async function fetchProjects() {
+  const res = await axios.get(`${API_BASE}/api/projets`, {
+    params: {
+      populate: "*",
+      "filters[Titre][$notNull]": true,
+    },
+  });
+
+  return res.data.data.map((item) => ({
+    ...item,
+    Media: normalizeMediaList(item.Image), // ton champ Image dans Strapi
+  }));
 }
 
-
-// import axios from "axios";
-
+// 📌 FETCH MYLIFE (inchangé)
 export async function fetchMylife() {
-  const res = await axios.get(
-    "https://phenomenal-boat-7e7ba709d3.strapiapp.com/api/projets?populate=*"
-  );
+  const res = await axios.get(`${API_BASE}/api/projets?populate=*`);
 
   return res.data.data
     .filter(
@@ -34,24 +75,6 @@ export async function fetchMylife() {
       annee: item?.mylifeAnnee || null,
       action: item?.mylifeAction || null,
       explication: item?.mylifeExplication || null,
-      images:
-        item?.mylifeImages?.map((img) => {
-          if (!img) return null;
-          const originalUrl = img?.url || img?.formats?.original?.url;
-          // Si c'est un GIF => on garde l'original
-          if (originalUrl?.toLowerCase().endsWith(".gif")) {
-            return originalUrl;
-          }
-          // Sinon => on garde la version optimisée
-          return img?.formats?.medium?.url || originalUrl;
-        }) || [],
+      images: normalizeMediaList(item.mylifeImages),
     }));
-}
-
-
-
-
-export async function fetchProjectBySlug(slug) {
-  const res = await axios.get(`https://phenomenal-boat-7e7ba709d3.strapiapp.com/api/projets?filters[Slug][$eq]=${slug}&populate=*`);
-  return res.data.data[0] || null;
 }

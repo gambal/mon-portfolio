@@ -3,7 +3,7 @@ import { fetchProjects } from '../../../utils/fetchProjects';
 import './projectSlug.css';
 import './gridVariant.css';
 import Lightbox from '../../../utils/lightbox';
-// Variantes par nombre d'images
+
 const gridVariantsByCount = {
   1: ['grid-1-variant-1', 'grid-1-variant-2', 'grid-1-variant-3'],
   2: ['grid-2-variant-1', 'grid-2-variant-2', 'grid-2-variant-3'],
@@ -20,33 +20,27 @@ const gridVariantsByCount = {
 export default async function ProjectPage({ params }) {
   const projets = await fetchProjects();
   const projet = projets.find((p) => p.Slug === params.slug);
-  const maxImage = 10;
+  const maxMedia = 10;
+
   if (!projet) {
     return <p>Projet introuvable</p>;
   }
 
-  const imageUrls =
-    projet.Image?.map((img) => img.formats?.medium?.url || img.url) || [];
+  // On suppose que l’API retourne un tableau "Media" avec { type: 'image'|'video', url: '...' }
+  const mediaItems = projet.Media || [];
+  const limitedMedia = mediaItems.slice(0, maxMedia);
+  const mediaCount = limitedMedia.length;
 
-  const limitedImages = imageUrls.slice(0, maxImage);
-  const imgCount = limitedImages.length;
-
-  // Choisir une variante adaptée au nombre d’images
-  const variantsForCount = gridVariantsByCount[imgCount] || [];
+  const variantsForCount = gridVariantsByCount[mediaCount] || [];
   const gridClass = variantsForCount.length
     ? variantsForCount[Math.floor(Math.random() * variantsForCount.length)]
     : '';
-
-  // 🔹 Rotation aléatoire entre -5° et 5°
-  const randomRotation = 0;
 
   return (
     <main className="project-slug-container">
       <div
         className="graphiqueProjectSlug"
-        style={{
-          transform: `rotate(${randomRotation}deg)`,
-        }}
+        style={{ transform: `rotate(0deg)` }}
       ></div>
 
       {/* Colonne gauche */}
@@ -76,25 +70,48 @@ export default async function ProjectPage({ params }) {
 
       {/* Colonne droite avec GRID dynamique */}
       <div className={`project-slug-images ${gridClass}`}>
-        {limitedImages.length > 0 ? (
-          limitedImages.map((url, index) => {
+        {limitedMedia.length > 0 ? (
+          limitedMedia.map((media, index) => {
             const randomZIndex = Math.random() < 0.5 ? 9 : 11;
 
-            return (
-              <img
-                key={index}
-                src={url}
-                alt={`Image ${index + 1}`}
-                className="clickable-img"
-                style={{
-                  position: 'relative',
-                  zIndex: randomZIndex,
-                }}
-              />
-            );
+            if (media.type === 'image') {
+              return (
+                <img
+                  key={index}
+                  src={media.url}
+                  alt={`Média ${index + 1}`}
+                  className="clickable-img"
+                  style={{
+                    position: 'relative',
+                    zIndex: randomZIndex
+                  }}
+                />
+              );
+            }
+
+            if (media.type === 'video') {
+              return (
+                <video
+                  key={index}
+                  src={media.url}
+                  // controls
+                  muted
+                  autoPlay
+                  loop
+                  playsInLine
+                  className="clickable-img"
+                  style={{
+                    position: 'relative',
+                    zIndex: randomZIndex
+                  }}
+                />
+              );
+            }
+
+            return null;
           })
         ) : (
-          <p>Aucune image</p>
+          <p>Aucun média</p>
         )}
       </div>
 
@@ -102,4 +119,3 @@ export default async function ProjectPage({ params }) {
     </main>
   );
 }
-

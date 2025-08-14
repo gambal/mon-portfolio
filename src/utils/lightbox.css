@@ -4,12 +4,12 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0,0,0,0.8);
+  background: rgba(255,255,255,0.2);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1001;
-    backdrop-filter: blur(80px);
+    backdrop-filter: blur(20px);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
@@ -22,7 +22,7 @@
 
 .lightbox-overlay img {
   max-width: 100dvw;
-  max-height: 100dvh;
+  max-height: 80vh;
   object-fit: contain;
   border-radius: 8px;
   box-shadow: 0 0 20px rgba(0,0,0,0.5);

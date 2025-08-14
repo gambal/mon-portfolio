@@ -12,11 +12,15 @@
 *{
   cursor: none;
 }
+html{
+  /* filter: invert(1) hue-rotate(120deg); */
+}
 body {
   font-family: 'HelveticaCustom', sans-serif;
-  background-color: white;
-  color: black;
+  background-color: black;
+  color: white;
   overflow-x: hidden;
+  /* backdrop-filter: invert(); */
 }
 ::-webkit-scrollbar {
   width: 10px;            

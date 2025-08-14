@@ -4,18 +4,15 @@ import { useEffect, useState, useMemo } from "react";
 import { fetchMylife } from "@/utils/fetchProjects";
 import Lightbox from "@/utils/lightbox";
 import "./mylife.css";
-import "./gridVariantMyLife.css"; // ⬅ pour réutiliser tes grilles
-
+import "./gridVariantMyLife.css";
 
 import { M_PLUS_1p } from 'next/font/google';
 
-// Import et configuration de la police
 const mPlus1p = M_PLUS_1p({
-  weight: ['400', '700'], // poids que tu veux utiliser
+  weight: ['400', '700'],
   subsets: ['latin'],
 });
 
-// import Lightbox from '../../utils/lightbox';
 const gridVariantsByCount = {
   1: ["mylife-grid-1-variant-1", "mylife-grid-1-variant-2", "mylife-grid-1-variant-3"],
   2: ["mylife-grid-2-variant-1", "mylife-grid-2-variant-2", "mylife-grid-2-variant-3"],
@@ -41,6 +38,14 @@ export default function MylifePage() {
       try {
         const data = await fetchMylife();
         setMylifeData(Array.isArray(data) ? data : []);
+
+        // Initialise année et action par défaut
+        if (data.length > 0) {
+          const firstYear = data[0].annee;
+          setSelectedYear(firstYear);
+          const firstAction = data.find(e => e.annee === firstYear)?.action || null;
+          setSelectedAction(firstAction);
+        }
       } catch (e) {
         console.error("fetchMylife error", e);
       }
@@ -57,23 +62,22 @@ export default function MylifePage() {
     ? entriesForYear.find((e) => e.action === selectedAction)
     : null;
 
-  // 🔹 Limiter à 10 images
-  const limitedImages = useMemo(() => {
+  // 🔹 Limiter à 6 médias
+  const limitedMedia = useMemo(() => {
     return actionDetails?.images?.slice(0, 6) || [];
   }, [actionDetails]);
 
-  // 🔹 Calcul classe de grid selon le nombre d’images limitées
   const gridClass = useMemo(() => {
-    if (!limitedImages.length) return "";
-    const count = limitedImages.length;
+    if (!limitedMedia.length) return "";
+    const count = limitedMedia.length;
     const variants = gridVariantsByCount[count] || [];
     return variants.length
       ? variants[Math.floor(Math.random() * variants.length)]
       : "";
-  }, [limitedImages]);
+  }, [limitedMedia]);
 
   return (
-    <div className="mylife-layout">
+    <div className={`mylife-layout ${mPlus1p.className}`}>
       <div className="graphiqueMyLife"></div>
 
       {/* Colonne Années */}
@@ -84,11 +88,8 @@ export default function MylifePage() {
             className={`year-item ${selectedYear == year ? "active" : ""}`}
             onClick={() => {
               setSelectedYear(year);
-              if (actionsForYear.length > 0) {
-                setSelectedAction(actionsForYear[0]);
-              } else {
-                setSelectedAction(null);
-              }
+              const firstActionForYear = mylifeData.find(e => e.annee === year)?.action || null;
+              setSelectedAction(firstActionForYear);
             }}
           >
             <span className="arrow">→</span> {year}
@@ -114,27 +115,47 @@ export default function MylifePage() {
         {actionDetails?.explication && <p>{actionDetails.explication}</p>}
       </div>
 
-      {/* Colonne Images avec GRID dynamique */}
+      {/* Colonne Médias */}
       <div className={`mylife-images-grid ${gridClass}`}>
-        {limitedImages.map((imgUrl, i) => {
+        {limitedMedia.map((media, i) => {
           const randomZIndex = Math.random() < 0.5 ? 9 : 11;
           const extraClass = randomZIndex === 11 ? "z11-shadow" : "";
 
-          return (
-            <img
-              key={i}
-              src={imgUrl}
-              alt={selectedAction || `image-${i}`}
-              className={extraClass}
-              style={{
-                position: "relative",
-                zIndex: randomZIndex,
-              }}
-            />
-          );
-        })}
+          if (media.type === "image") {
+            return (
+              <img
+                key={i}
+                src={media.url}
+                alt={selectedAction || `image-${i}`}
+                className={extraClass}
+                style={{
+                  position: "relative",
+                  zIndex: randomZIndex,
+                }}
+              />
+            );
+          }
 
+          if (media.type === "video") {
+            return (
+              <video
+                key={i}
+                src={media.url}
+                controls
+                className={extraClass}
+                style={{
+                  position: "relative",
+                  zIndex: randomZIndex,
+                  maxWidth: "100%",
+                }}
+              />
+            );
+          }
+
+          return null;
+        })}
       </div>
+
       <Lightbox />
     </div>
   );

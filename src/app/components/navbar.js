@@ -9,13 +9,13 @@ export default function Navbar() {
         <span><Link href="/home">alexandre</Link></span>
         <span><Link href="/home">gambarini</Link></span>
       </div>
-      <div className="navbar__left"><Link href="/home">alexandre</Link></div>
+      <div className="navbar__left"><Link href="/about-me">alexandre</Link></div>
       <div className="navbar__center">
         <Link href="/projects" className="navbar__link link_projects">projects</Link>
         <Link href="/mylife" className="navbar__link link_mylife">my life</Link>
         <Link href="/contact" className="navbar__link  link_contact">contact</Link>
       </div>
-      <div className="navbar__right"><Link href="/home">gambarini</Link></div>
+      <div className="navbar__right"><Link href="/about-me">gambarini</Link></div>
     </nav>
   );
 }

@@ -6,63 +6,75 @@ export default function Lightbox() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    // conteneurs autorisés — tu peux ajouter d'autres sélecteurs si besoin
     const containerSelectors = ['.project-slug-images', '.mylife-images-grid'];
 
-    // Réutiliser overlay s'il existe (évite doublons si mount multiple)
     let overlay = document.querySelector('.lightbox-overlay');
     let created = false;
     if (!overlay) {
       overlay = document.createElement('div');
       overlay.className = 'lightbox-overlay';
-      overlay.innerHTML = '<img class="lightbox-image" alt="Preview" />';
+      overlay.innerHTML = `
+        <img class="lightbox-image" alt="Preview" style="display:none;" />
+        <video class="lightbox-video" controls autoPlay style="display:none; max-width:90%; max-height:90%;"></video>
+      `;
       document.body.appendChild(overlay);
       created = true;
     }
 
     const imgElement = overlay.querySelector('.lightbox-image');
+    const videoElement = overlay.querySelector('.lightbox-video');
 
-    const open = (img) => {
-      const src =
-        img.currentSrc ||
-        img.src ||
-        img.dataset?.src ||
-        img.getAttribute('data-src') ||
-        '';
-      if (!src) return;
+    const openImage = (src) => {
       imgElement.src = src;
+      imgElement.style.display = 'block';
+      videoElement.style.display = 'none';
+      videoElement.pause();
       overlay.classList.add('active');
-      // optionnel : bloquer le scroll de fond
+      document.documentElement.style.overflow = 'hidden';
+    };
+
+    const openVideo = (src) => {
+      videoElement.src = src;
+      videoElement.style.display = 'block';
+      imgElement.style.display = 'none';
+      imgElement.src = '';
+      overlay.classList.add('active');
       document.documentElement.style.overflow = 'hidden';
     };
 
     const close = () => {
       overlay.classList.remove('active');
       imgElement.src = '';
+      videoElement.pause();
+      videoElement.src = '';
       document.documentElement.style.overflow = '';
     };
 
-    const isAllowedImg = (img) =>
-      containerSelectors.some((sel) => Boolean(img.closest(sel)));
+    const isAllowedMedia = (el) =>
+      containerSelectors.some((sel) => Boolean(el.closest(sel)));
 
     const onDocumentClick = (e) => {
       const target = e.target;
 
-      // si clic dans l'overlay (mais pas sur l'image) => fermer
-      if (overlay.contains(target) && !target.closest('.lightbox-image')) {
+      if (overlay.contains(target) && !target.closest('.lightbox-image') && !target.closest('.lightbox-video')) {
         close();
         return;
       }
 
       const img = target.closest('img');
-      if (!img) return;
-      if (!isAllowedImg(img)) return;
+      const vid = target.closest('video');
 
-      // empêcher lien par exemple
-      if (e.defaultPrevented) return;
-      e.preventDefault();
+      if (img && isAllowedMedia(img)) {
+        e.preventDefault();
+        const src = img.currentSrc || img.src || img.dataset?.src || '';
+        if (src) openImage(src);
+      }
 
-      open(img);
+      if (vid && isAllowedMedia(vid)) {
+        e.preventDefault();
+        const src = vid.currentSrc || vid.src || vid.dataset?.src || '';
+        if (src) openVideo(src);
+      }
     };
 
     const onKeyDown = (e) => {
@@ -71,7 +83,6 @@ export default function Lightbox() {
       }
     };
 
-    // capture early pour attraper clics sur images avant d'autres handlers
     document.addEventListener('click', onDocumentClick, true);
     document.addEventListener('keydown', onKeyDown);
 

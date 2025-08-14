@@ -19,18 +19,20 @@ export default function Cursor() {
     window.addEventListener('mousemove', onMouseMove);
 
     const isClickable = (target) => {
-      return (
-        target.tagName === 'A' ||
-        target.tagName === 'BUTTON' ||
-        target.hasAttribute('onclick') ||
-        target.closest('.project-slug-images img, .mylife-images-grid img')
-      );
-    };
+  return (
+    target.tagName === 'A' ||
+    target.tagName === 'BUTTON' ||
+    target.hasAttribute('onclick') ||
+    target.closest(
+      '.project-slug-images img, .mylife-images-grid img, .project-slug-images video, .mylife-images-grid video'
+    )
+  );
+};
 
     const onMouseOver = (e) => {
       if (isClickable(e.target)) {
         hoveringClickable.current = true;
-        cursorRef.current.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+        cursorRef.current.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
         cursorRef.current.style.borderColor = 'black';
         scaleRef.current = 1.5;
       }

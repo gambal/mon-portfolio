@@ -2,23 +2,22 @@
 html, body {
   height: auto; /* pour suivre le contenu */
 }
+
 .projects-container {
-  /* background-color: pink; */
   position: relative;
-  padding: 0rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  overflow-y: hidden;
 }
-.graphiqueProject{
-  /* overflow-y: hidden; */
-  position:absolute;
+
+.graphiqueProject {
+  position: absolute;
   top: -10dvh;
   left: 0px;
   width: 100dvw;
   min-height: 100dvh;
-  height: 100%;
-  /* background-color: red; */
+  height: 110%;
   background-image: url("../assets/graphik/projects.svg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -27,7 +26,6 @@ html, body {
 }
 
 .project-card {
-  /* background-color: black; */
   display: grid;
   grid-template-columns: clamp(15rem, 30vw, 40rem) 1fr;
   height: 25vh;
@@ -35,33 +33,34 @@ html, body {
   overflow: hidden;
   gap: 1rem;
 }
+
 @media (min-width: 2000px) {
   .project-card {
-    height: 16dvw; /* par exemple, 15% de la largeur viewport dynamique */
-    min-height: unset; /* si tu veux enlever la min-height */
+    height: 16dvw;
+    min-height: unset;
   }
   .project-description {
     width: 100%;
     margin-top: 1rem;
     font-size: 0.7dvw !important;
-    color: black;
-    }
+    color: white;
+  }
 }
 
 .project-text {
   width: clamp(15rem, 30vw, 40rem);
   padding: 0rem 1rem;
-  border-right: 2px solid rgba(0, 0, 0, 1);
+  border-right: 2px solid rgba(255, 255, 255, 1);
   min-width: 0;
+  z-index: 110;
 }
-
 
 .project-meta {
   width: 100%;
   display: flex;
+  color: white;
   justify-content: space-between;
   align-items: center;
-  /* font-size: 3rem; */
 }
 
 .project-title {
@@ -72,26 +71,26 @@ html, body {
   font-size: max(min(3vw, 5em), 2vw);
   text-transform: uppercase;
 }
+
 .project-title a {
   display: inline-block;
   text-decoration: none;
   color: inherit;
-  /* transition pas nécessaire ici mais ok */
 }
+
 .scroll-wrapper {
   overflow: hidden;
   width: 100%;
 }
 
 .scroll-text:hover {
-  /* background-color: red; */
   display: inline-block;
-  padding-right: 2rem; /* espace pour la boucle */
+  padding-right: 2rem;
   animation: scroll-title 6s linear infinite;
 }
 
 .scroll-on-hover:hover {
-  animation: scroll-title 6s linear ;
+  animation: scroll-title 6s linear;
 }
 
 @keyframes scroll-title {
@@ -99,13 +98,12 @@ html, body {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-90%); /* mi-course */
+    transform: translateX(-90%);
   }
 }
 
-
 .project-year {
-white-space: nowrap;
+  white-space: nowrap;
   margin-top: 0.5rem;
   display: flex;
   font-size: max(min(2.5vw, 2.5em), 1rem);
@@ -115,16 +113,14 @@ white-space: nowrap;
 .project-category-container {
   display: flex;
   flex-wrap: wrap;
-  /* background-color: aquamarine; */
   width: 80%;
 }
 
 .project-category {
-    white-space: nowrap;
-  background-color: black;
-  color: white;
+  white-space: nowrap;
+  background-color: white;
+  color: black;
   font-size: 0.85rem;
-  /* font-weight: bold; */
   padding: 0.2rem 0.6rem 0.1rem 0.5rem;
   margin: 0.2em 0.2em 0em 0em;
   border-radius: 200px;
@@ -132,25 +128,28 @@ white-space: nowrap;
 
 .project-description {
   width: 100%;
-  /* background-color: red; */
   margin-top: 1rem;
   font-size: 1rem;
-  color: black;
+  color: white;
 }
 
-.project-images {
+/* === Styles médias communs === */
+.project-media {
   overflow: hidden;
   display: flex;
   align-items: center;
   gap: 1rem;
   padding-left: 1rem;
-  min-width: 0; /* IMPORTANT pour le resize */
+  min-width: 0;
 }
 
-.project-images img {
+.project-media img,
+.project-media video {
   height: 100%;
   transform-origin: center center;
   object-fit: cover;
   overflow: hidden;
+  /* border: 1px dotted white; */
+  /* border-radius: 10px; */
+  background-color: black; /* pour les vidéos avec bandes */
 }
-

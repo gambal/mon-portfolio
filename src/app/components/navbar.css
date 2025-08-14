@@ -7,9 +7,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1em 2em;
-  /* background-color: white; */
+  padding: 1em 1em;
+  background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(5px);
+  color: white;
 }
 
 .navbar__left,
@@ -28,7 +29,6 @@
 }
 
 .navbar__link {
-  padding: 0vw 0vw;
   position: relative; /* nécessaire pour l’animation */
   text-decoration: none;
 }
@@ -41,7 +41,7 @@
   bottom: 3px;
   width: 0;
   height: 0.1dvw;
-  background-color: black;
+  background-color: white;
   transition: width 0.5s ease;
 }
 .link_contact::after {
@@ -51,7 +51,7 @@
   bottom: 3px;
   width: 0;
   height: 0.1dvw;
-  background-color: black;
+  background-color: white;
   transition: width 0.5s ease;
 }
 .link_mylife::after {
@@ -61,7 +61,7 @@
   bottom: 3px;
   width: 0;
   height: 0.1dvw;
-  background-color: black;
+  background-color: white;
   transform-origin: center;  /* origine du scale au centre */
   transform: translateX(-50%) scaleX(0); /* on centre la ligne et on la réduit à 0 */
   transition: transform 0.5s ease;

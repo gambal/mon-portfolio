@@ -15,7 +15,7 @@
     overflow: hidden;
   flex: 3;
   margin: 0em 0em 1em 1em;
-  background-color: black;
+  background-color: blue;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,7 +32,6 @@
     background-image: url("../assets/graphik/home.svg");
     background-repeat: no-repeat;
     background-position-y: bottom;
-    fill: red;
     position: fixed;
     bottom: 0px;
     width: 80vw;

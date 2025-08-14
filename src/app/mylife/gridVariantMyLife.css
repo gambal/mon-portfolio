@@ -17,21 +17,21 @@
   grid-template-columns: 1fr 2fr;
   grid-template-rows: 100%;
   grid-template-areas:
-    ". img1";
+    "img1 img1";
 }
 .mylife-grid-1-variant-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 100%;
   grid-template-areas:
-    ". img1";
+    "img1 img1";
 }
 .mylife-grid-1-variant-3 {
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 100%;
   grid-template-areas:
-    ". img1";
+    "img1 img1";
 }
 
 /* === 2 IMAGES === */
