@@ -1,6 +1,7 @@
 /* projects.css */
 html, body {
   height: auto; /* pour suivre le contenu */
+  /* border: 1px solid black; */
 }
 
 .projects-container {
@@ -9,6 +10,7 @@ html, body {
   flex-direction: column;
   gap: 2rem;
   overflow-y: hidden;
+  /* border: 2px solid black; */
 }
 
 .graphiqueProject {

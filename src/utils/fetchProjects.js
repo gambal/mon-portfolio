@@ -50,6 +50,7 @@ export async function fetchProjects() {
   const res = await axios.get(`${API_BASE}/api/projets`, {
     params: {
       populate: "*",
+      "pagination[pageSize]": 200,
       "filters[Titre][$notNull]": true,
     },
   });
@@ -62,8 +63,12 @@ export async function fetchProjects() {
 
 // 📌 FETCH MYLIFE (inchangé)
 export async function fetchMylife() {
-  const res = await axios.get(`${API_BASE}/api/projets?populate=*`);
-
+const res = await axios.get(`${API_BASE}/api/projets`, {
+  params: {
+    populate: "*",
+    "pagination[pageSize]": 200 // un nombre suffisamment grand
+  }
+});
   return res.data.data
     .filter(
       (item) =>

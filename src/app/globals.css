@@ -12,8 +12,17 @@
 *{
   cursor: none;
 }
+:focus {
+  outline: none;
+}
 html{
   /* filter: invert(1) hue-rotate(120deg); */
+}
+@media (min-width: 2500px){
+html{
+  width: 80dvw;
+  margin: 0dvh 10dvw;
+}
 }
 body {
   font-family: 'HelveticaCustom', sans-serif;

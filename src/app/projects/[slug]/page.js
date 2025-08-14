@@ -1,20 +1,22 @@
 // src/app/projects/[slug]/page.js
-import { fetchProjects } from '../../../utils/fetchProjects';
-import './projectSlug.css';
-import './gridVariant.css';
-import Lightbox from '../../../utils/lightbox';
+
+import { fetchProjects } from "../../../utils/fetchProjects";
+import "./projectSlug.css";
+import "./gridVariant.css";
+import Lightbox from "../../../utils/lightbox";
+import EscapeRedirect from "../../../utils/EscapeRedirect"; // 🔹 Composant client
 
 const gridVariantsByCount = {
-  1: ['grid-1-variant-1', 'grid-1-variant-2', 'grid-1-variant-3'],
-  2: ['grid-2-variant-1', 'grid-2-variant-2', 'grid-2-variant-3'],
-  3: ['grid-3-variant-1', 'grid-3-variant-2', 'grid-3-variant-3'],
-  4: ['grid-4-variant-1', 'grid-4-variant-2', 'grid-4-variant-3'],
-  5: ['grid-5-variant-1', 'grid-5-variant-2', 'grid-5-variant-3'],
-  6: ['grid-6-variant-1', 'grid-6-variant-2', 'grid-6-variant-3'],
-  7: ['grid-7-variant-1', 'grid-7-variant-2', 'grid-7-variant-3'],
-  8: ['grid-8-variant-1', 'grid-8-variant-2', 'grid-8-variant-3'],
-  9: ['grid-9-variant-1', 'grid-9-variant-2', 'grid-9-variant-3'],
-  10: ['grid-10-variant-1', 'grid-10-variant-2', 'grid-10-variant-3']
+  1: ["grid-1-variant-1", "grid-1-variant-2", "grid-1-variant-3"],
+  2: ["grid-2-variant-1", "grid-2-variant-2", "grid-2-variant-3"],
+  3: ["grid-3-variant-1", "grid-3-variant-2", "grid-3-variant-3"],
+  4: ["grid-4-variant-1", "grid-4-variant-2", "grid-4-variant-3"],
+  5: ["grid-5-variant-1", "grid-5-variant-2", "grid-5-variant-3"],
+  6: ["grid-6-variant-1", "grid-6-variant-2", "grid-6-variant-3"],
+  7: ["grid-7-variant-1", "grid-7-variant-2", "grid-7-variant-3"],
+  8: ["grid-8-variant-1", "grid-8-variant-2", "grid-8-variant-3"],
+  9: ["grid-9-variant-1", "grid-9-variant-2", "grid-9-variant-3"],
+  10: ["grid-10-variant-1", "grid-10-variant-2", "grid-10-variant-3"],
 };
 
 export default async function ProjectPage({ params }) {
@@ -26,7 +28,6 @@ export default async function ProjectPage({ params }) {
     return <p>Projet introuvable</p>;
   }
 
-  // On suppose que l’API retourne un tableau "Media" avec { type: 'image'|'video', url: '...' }
   const mediaItems = projet.Media || [];
   const limitedMedia = mediaItems.slice(0, maxMedia);
   const mediaCount = limitedMedia.length;
@@ -34,14 +35,14 @@ export default async function ProjectPage({ params }) {
   const variantsForCount = gridVariantsByCount[mediaCount] || [];
   const gridClass = variantsForCount.length
     ? variantsForCount[Math.floor(Math.random() * variantsForCount.length)]
-    : '';
+    : "";
 
   return (
     <main className="project-slug-container">
-      <div
-        className="graphiqueProjectSlug"
-        style={{ transform: `rotate(0deg)` }}
-      ></div>
+      {/* 🔹 Ajout du listener Escape */}
+      <EscapeRedirect to="/projects" />
+
+      <div className="graphiqueProjectSlug" style={{ transform: `rotate(0deg)` }}></div>
 
       {/* Colonne gauche */}
       <div className="project-slug-text">
@@ -49,7 +50,7 @@ export default async function ProjectPage({ params }) {
 
         <div className="project-slug-category-container">
           {projet.Categorie &&
-            projet.Categorie.split(' - ').map((cat, index) => (
+            projet.Categorie.split(" - ").map((cat, index) => (
               <p key={index} className="project-slug-category">
                 {cat.trim()}
               </p>
@@ -57,7 +58,7 @@ export default async function ProjectPage({ params }) {
         </div>
 
         <p className="project-slug-description">
-          {projet.Explication || 'Pas d’explication disponible.'}
+          {projet.Explication || "Pas d’explication disponible."}
         </p>
 
         <div className="project-slug-bottom-meta">
@@ -74,36 +75,29 @@ export default async function ProjectPage({ params }) {
           limitedMedia.map((media, index) => {
             const randomZIndex = Math.random() < 0.5 ? 9 : 11;
 
-            if (media.type === 'image') {
+            if (media.type === "image") {
               return (
                 <img
                   key={index}
                   src={media.url}
                   alt={`Média ${index + 1}`}
                   className="clickable-img"
-                  style={{
-                    position: 'relative',
-                    zIndex: randomZIndex
-                  }}
+                  style={{ position: "relative", zIndex: randomZIndex }}
                 />
               );
             }
 
-            if (media.type === 'video') {
+            if (media.type === "video") {
               return (
                 <video
                   key={index}
                   src={media.url}
-                  // controls
                   muted
                   autoPlay
                   loop
-                  playsInLine
+                  playsInline
                   className="clickable-img"
-                  style={{
-                    position: 'relative',
-                    zIndex: randomZIndex
-                  }}
+                  style={{ position: "relative", zIndex: randomZIndex }}
                 />
               );
             }
