@@ -15,7 +15,9 @@
     overflow: hidden;
   flex: 3;
   margin: 0em 0em 1em 1em;
-  background-color: blue;
+  /* background-color: blue; */
+  background-image: url("https://res.cloudinary.com/dweali6ld/image/upload/v1755245591/contact_yvt3bf.svg");
+  background-repeat: no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;

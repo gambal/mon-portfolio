@@ -47,8 +47,13 @@ export default function Projects() {
   }, [projets]);
 
   if (!projets.length) {
-    return <p className="p-8">Chargement des projets...</p>;
-  }
+  return (
+    <div className="flex justify-center items-center min-h-[50vh]">
+      <div className="loader"></div>
+    </div>
+  );
+}
+
 
   return (
     <main className="projects-container" ref={containerRef}>

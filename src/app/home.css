@@ -1,5 +1,16 @@
 /* home.css */
-
+.MAINTNANCE{
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100dvw;
+  height: 100dvh;
+  background-color: black;
+  background-image: url("./assets/UnderMaintenance0.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 100000;
+}
 .home-container {
     position: fixed;
     bottom: 0px;
@@ -15,7 +26,7 @@
     overflow: hidden;
   flex: 3;
   margin: 0em 0em 1em 1em;
-  background-color: black;
+  background-color: red;
   display: flex;
   align-items: center;
   justify-content: center;

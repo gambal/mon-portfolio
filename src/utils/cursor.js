@@ -7,9 +7,7 @@ export default function Cursor() {
   const pos = useRef({ x: 0, y: 0 });
   const posAnimated = useRef({ x: 0, y: 0 });
   const scaleRef = useRef(1);
-  const hoveringClickable = useRef(false); // savoir si on est sur un lien
-
-  const easeFactor = 0.09;
+  const hoveringClickable = useRef(false);
 
   useEffect(() => {
     const onMouseMove = (e) => {
@@ -19,15 +17,15 @@ export default function Cursor() {
     window.addEventListener('mousemove', onMouseMove);
 
     const isClickable = (target) => {
-  return (
-    target.tagName === 'A' ||
-    target.tagName === 'BUTTON' ||
-    target.hasAttribute('onclick') ||
-    target.closest(
-      '.project-slug-images img, .mylife-images-grid img, .project-slug-images video, .mylife-images-grid video'
-    )
-  );
-};
+      return (
+        target.tagName === 'A' ||
+        target.tagName === 'BUTTON' ||
+        target.hasAttribute('onclick') ||
+        target.closest(
+          '.project-slug-images img, .mylife-images-grid img, .project-slug-images video, .mylife-images-grid video'
+        )
+      );
+    };
 
     const onMouseOver = (e) => {
       if (isClickable(e.target)) {
@@ -48,11 +46,10 @@ export default function Cursor() {
     };
 
     const onMouseDown = () => {
-      scaleRef.current = 0.5; // shrink on click
+      scaleRef.current = 0.5;
     };
 
     const onMouseUp = () => {
-      // Retour à 1.5 si lien, sinon 1
       scaleRef.current = hoveringClickable.current ? 1.5 : 1;
     };
 
@@ -63,22 +60,15 @@ export default function Cursor() {
 
     let animationFrameId;
     const animate = () => {
-        const dx = pos.current.x - posAnimated.current.x;
-        const dy = pos.current.y - posAnimated.current.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
+      // Mouvement instantané
+      posAnimated.current.x = pos.current.x;
+      posAnimated.current.y = pos.current.y;
 
-        const factor = dist < 4 ? 0.2 : 0.9; // proche → rapide, loin → fluide
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `translate3d(${posAnimated.current.x}px, ${posAnimated.current.y}px, 0) translate(-50%, -50%) scale(${scaleRef.current})`;
+      }
 
-        // posAnimated.current.x += dx * factor;
-        // posAnimated.current.y += dy * factor;
-        posAnimated.current.x = pos.current.x;
-posAnimated.current.y = pos.current.y;
-
-        if (cursorRef.current) {
-            cursorRef.current.style.transform = `translate3d(${posAnimated.current.x}px, ${posAnimated.current.y}px, 0) translate(-50%, -50%) scale(${scaleRef.current})`;
-        }
-
-        animationFrameId = requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(animate);
     };
     animate();
 
@@ -106,8 +96,9 @@ posAnimated.current.y = pos.current.y;
         backgroundColor: 'rgba(0, 0, 0, 1)',
         pointerEvents: 'none',
         zIndex: 9999,
-        transform: 'translate3d(0,0,0) translate(-50%, -50%) scale(1)',
+        transform: 'scale(1)',
         backdropFilter: 'blur(1px)',
+        // Transition uniquement pour couleur et scale
         transition:
           'background-color 0.2s ease, border-color 0.2s ease, transform 0.25s ease',
       }}
